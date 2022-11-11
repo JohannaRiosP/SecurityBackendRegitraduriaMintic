@@ -9,7 +9,7 @@ public class Permission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPermission;
-    private Integer namePermission;
+    private Integer permissionName;
     private String url;
     private String method;
 
@@ -21,12 +21,12 @@ public class Permission implements Serializable {
         this.idPermission = idPermission;
     }
 
-    public Integer getNamePermission() {
-        return namePermission;
+    public Integer getPermissionName() {
+        return permissionName;
     }
 
-    public void setNamePermission(Integer namePermission) {
-        this.namePermission = namePermission;
+    public void setPermissionName(Integer permissionName) {
+        this.permissionName = permissionName;
     }
 
     public String getUrl() {
