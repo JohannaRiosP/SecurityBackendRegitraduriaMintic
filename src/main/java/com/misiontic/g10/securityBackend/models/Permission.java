@@ -2,6 +2,7 @@ package com.misiontic.g10.securityBackend.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name="permission")
@@ -13,6 +14,9 @@ public class Permission implements Serializable {
     private String url;
     private String method;
 
+    @ManyToMany(mappedBy = "permissions")
+    private Set<Rol> roles;
+
     public Integer getIdPermission() {
         return idPermission;
     }
@@ -22,6 +26,7 @@ public class Permission implements Serializable {
     }
 
     public Integer getPermissionName() {
+
         return permissionName;
     }
 
@@ -30,6 +35,7 @@ public class Permission implements Serializable {
     }
 
     public String getUrl() {
+
         return url;
     }
 
@@ -38,6 +44,7 @@ public class Permission implements Serializable {
     }
 
     public String getMethod() {
+
         return method;
     }
 

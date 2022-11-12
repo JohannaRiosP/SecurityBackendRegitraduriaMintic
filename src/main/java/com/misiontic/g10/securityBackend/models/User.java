@@ -1,5 +1,6 @@
 package com.misiontic.g10.securityBackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jdk.jfr.Enabled;
 
 import javax.persistence.*;
@@ -17,6 +18,11 @@ public class User implements Serializable {
     private String userIdentify;
     private String password;
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name="idRol")
+    @JsonIgnoreProperties ("users")
+    private Rol rol;
 
     public Integer getIdUser() {
         return idUser;
