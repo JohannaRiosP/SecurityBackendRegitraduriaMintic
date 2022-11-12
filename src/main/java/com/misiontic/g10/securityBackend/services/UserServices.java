@@ -2,10 +2,14 @@ package com.misiontic.g10.securityBackend.services;
 
 import com.misiontic.g10.securityBackend.models.User;
 import com.misiontic.g10.securityBackend.repositories.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +32,7 @@ public class UserServices {
     public User create(User newUser){
         if(newUser.getIdUser() != null){
             if(newUser.getEmail() != null && newUser.getPassword() != null){
+                newUser.setPassword(this.convertToSHA256(newUser.getPassword()));
                 return this.userRepository.save(newUser);
             }
             else {
@@ -58,12 +63,43 @@ public class UserServices {
             return updatedUser;
         }
     }
-    public boolean delete(int idUser){
+
+        public boolean delete(int idUser){
         Boolean success = this.show(idUser).map(user -> {
             this.userRepository.delete(user);
             return true;
         }
         ).orElse(false);
         return success;
+    }
+
+    public HashMap<String, Boolean> login(User user){
+        String email = user.getEmail();
+        String password = this.convertToSHA256(user.getPassword());
+        Optional<User> result = this.userRepository.login(email, password);
+        HashMap<String, Boolean> response = new HashMap();
+        if(result.isEmpty())
+            response.put("login", false);
+        else
+            response.put("login", false);
+        return response;
+
+    }
+
+    public String convertToSHA256(String password){
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        }
+        catch(NoSuchAlgorithmException e){
+            e.printStackTrace();
+            return null;
+            }
+        byte[] hash = md.digest(password.getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (byte b : hash){
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 }
