@@ -10,24 +10,27 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/rol")
 public class RolController {
     @Autowired
     private RolServices rolServices;
 
     @GetMapping("/all")
     public List<Rol> getAllRoles(){
+
         return this.rolServices.index();
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public Optional<Rol> getRolById(@PathVariable("id") int idRol){
+
         return  this.rolServices.show(idRol);
     }
 
     @PostMapping("/insert")
     @ResponseStatus(HttpStatus.CREATED)
     public Rol insertRol(@RequestBody Rol rol){
+
         return this.rolServices.create(rol);
     }
 
@@ -40,6 +43,7 @@ public class RolController {
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteRol(@PathVariable("id") int idRol){
+
         return this.rolServices.delete(idRol);
     }
 }

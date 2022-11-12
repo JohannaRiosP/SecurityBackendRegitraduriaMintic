@@ -20,7 +20,7 @@ public class UserController {
         return this.userServices.index();
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public Optional<User> getUserById(@PathVariable("id") int idUser){
         return  this.userServices.show(idUser);
     }

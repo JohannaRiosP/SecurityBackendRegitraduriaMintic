@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/permission")
 public class PermissionController {
     @Autowired
     private PermissionServices permissionServices;
@@ -20,7 +20,7 @@ public class PermissionController {
         return this.permissionServices.index();
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public Optional<Permission> getPermissionById(@PathVariable("id") int idPermission){
         return  this.permissionServices.show(idPermission);
     }
