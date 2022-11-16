@@ -10,8 +10,9 @@ public class Permission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPermission;
-    private Integer permissionName;
+    @Column(name = "url", nullable = false, unique = true)
     private String url;
+    @Column(name = "method", nullable = false, unique = true)
     private String method;
 
     @ManyToMany(mappedBy = "permissions")
@@ -23,15 +24,6 @@ public class Permission implements Serializable {
 
     public void setIdPermission(Integer idPermission) {
         this.idPermission = idPermission;
-    }
-
-    public Integer getPermissionName() {
-
-        return permissionName;
-    }
-
-    public void setPermissionName(Integer permissionName) {
-        this.permissionName = permissionName;
     }
 
     public String getUrl() {

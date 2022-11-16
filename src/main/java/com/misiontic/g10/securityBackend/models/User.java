@@ -1,8 +1,6 @@
 package com.misiontic.g10.securityBackend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jdk.jfr.Enabled;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,11 +10,11 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUser;
+    @Column(name = "nickname", nullable = false, unique = true)
     private String nickname;
-    private String username;
-    private String lastname;
-    private String userIdentify;
+    @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @ManyToOne
@@ -28,10 +26,6 @@ public class User implements Serializable {
         return idUser;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
-    }
-
     public String getNickname() {
         return nickname;
     }
@@ -39,31 +33,6 @@ public class User implements Serializable {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getUserIdentify() {
-        return userIdentify;
-    }
-
-    public void setUserIdentify(String userIdentify) {
-        this.userIdentify = userIdentify;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -79,5 +48,15 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+
 }
 

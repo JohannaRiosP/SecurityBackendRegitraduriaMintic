@@ -23,7 +23,7 @@ public class PermissionServices {
         return this.permissionRepository.findById(idPermission);
     }
     public Permission create(Permission newPermission){
-        if(newPermission.getIdPermission() != null){
+        if(newPermission.getIdPermission() == null){
             if(newPermission.getUrl() != null && newPermission.getMethod() != null){
                 return this.permissionRepository.save(newPermission);
             }
@@ -39,8 +39,6 @@ public class PermissionServices {
         if(idPermission > 0){
             Optional<Permission> tempPermission = this.show(idPermission);
             if(tempPermission.isPresent()){
-                if(updatedPermission.getPermissionName() != null)
-                    tempPermission.get().setPermissionName(updatedPermission.getPermissionName());
                 if(updatedPermission.getUrl() != null)
                     tempPermission.get().setUrl(updatedPermission.getUrl());
                 return this.permissionRepository.save(tempPermission.get());

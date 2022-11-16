@@ -21,21 +21,32 @@ public class UserController {
         return this.userServices.index();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/by_id/{id}")
     public Optional<User> getUserById(@PathVariable("id") int idUser){
         return  this.userServices.show(idUser);
     }
 
+    @GetMapping("/by_nickname/{nickname}")
+    public Optional<User> getUserByNickname(@PathVariable("nickname") String nickname){
+        return  this.userServices.showByNickname(nickname);
+    }
+
+    @GetMapping("/by_email/{email}")
+    public Optional<User> getUserByEmail(@PathVariable("email") String email){
+        return  this.userServices.showByEmail(email);
+    }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public HashMap<String, Boolean> loginUser(@RequestBody User user){
+    public User loginUser(@RequestBody User user){
+
         return this.userServices.login(user);
     }
 
     @PostMapping("/insert")
     @ResponseStatus(HttpStatus.CREATED)
     public User insertUser(@RequestBody User user){
+
         return this.userServices.create(user);
     }
 

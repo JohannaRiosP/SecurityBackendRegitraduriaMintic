@@ -19,12 +19,11 @@ public class RolServices {
 
     }
 
-
-    public Optional<Rol> show(int idRol){
+    public Optional<Rol> show(Integer idRol){
         return this.rolRepository.findById(idRol);
     }
     public Rol create(Rol newRol){
-        if(newRol.getIdRol() != null){
+        if(newRol.getIdRol() == null){
             if(newRol.getRolName() != null){
                 return this.rolRepository.save(newRol);
             }
@@ -36,7 +35,7 @@ public class RolServices {
             return newRol;
         }
     }
-    public Rol update(int idRol, Rol updatedRol){
+    public Rol update(Integer idRol, Rol updatedRol){
         if(idRol > 0){
             Optional<Rol> tempRol = this.show(idRol);
             if(tempRol.isPresent()){
@@ -53,7 +52,7 @@ public class RolServices {
         }
     }
 
-    public boolean delete(int idRol){
+    public boolean delete(Integer idRol){
         Boolean success = this.show(idRol).map(rol -> {
             this.rolRepository.delete(rol);
             return true;

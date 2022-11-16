@@ -13,7 +13,11 @@ public class Rol implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRol;
+    @Column(name = "rolname", nullable = false, unique = true)
     private String rolName;
+    @Column(name = "description", nullable = false, unique = true)
+    private String Description;
+
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "rol")
     @JsonIgnoreProperties("rol")
@@ -41,5 +45,29 @@ public class Rol implements Serializable {
 
     public void setRolName(String rolName) {
         this.rolName = rolName;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 }
