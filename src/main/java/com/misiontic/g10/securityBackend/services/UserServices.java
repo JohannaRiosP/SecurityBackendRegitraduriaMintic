@@ -1,17 +1,12 @@
 package com.misiontic.g10.securityBackend.services;
-
 import com.misiontic.g10.securityBackend.models.User;
 import com.misiontic.g10.securityBackend.repositories.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import javax.swing.text.html.Option;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 

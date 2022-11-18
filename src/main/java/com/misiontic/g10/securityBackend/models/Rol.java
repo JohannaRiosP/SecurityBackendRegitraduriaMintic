@@ -16,7 +16,7 @@ public class Rol implements Serializable {
     @Column(name = "rolname", nullable = false, unique = true)
     private String rolName;
     @Column(name = "description", nullable = false, unique = true)
-    private String Description;
+    private String description;
 
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "rol")
@@ -48,11 +48,11 @@ public class Rol implements Serializable {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public List<User> getUsers() {

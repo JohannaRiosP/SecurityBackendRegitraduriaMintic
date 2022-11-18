@@ -37,27 +37,23 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public User loginUser(@RequestBody User user){
 
         return this.userServices.login(user);
     }
 
     @PostMapping("/insert")
-    @ResponseStatus(HttpStatus.CREATED)
     public User insertUser(@RequestBody User user){
 
         return this.userServices.create(user);
     }
 
     @PutMapping("/updated/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public User updateUser(@PathVariable("id") int idUser, @RequestBody User user){
         return this.userServices.update(idUser, user);
     }
 
     @DeleteMapping("/delete/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean deleteUser(@PathVariable("id") int idUser){
         return this.userServices.delete(idUser);
     }

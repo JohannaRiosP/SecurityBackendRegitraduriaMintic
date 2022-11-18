@@ -1,5 +1,4 @@
 package com.misiontic.g10.securityBackend.controllers;
-
 import com.misiontic.g10.securityBackend.models.Permission;
 import com.misiontic.g10.securityBackend.services.PermissionServices;
 import org.springframework.beans.factory.annotation.Autowired;

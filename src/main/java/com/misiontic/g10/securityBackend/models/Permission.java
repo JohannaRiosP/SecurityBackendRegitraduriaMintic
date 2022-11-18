@@ -19,10 +19,12 @@ public class Permission implements Serializable {
     private Set<Rol> roles;
 
     public Integer getIdPermission() {
+
         return idPermission;
     }
 
     public void setIdPermission(Integer idPermission) {
+
         this.idPermission = idPermission;
     }
 
@@ -32,6 +34,7 @@ public class Permission implements Serializable {
     }
 
     public void setUrl(String url) {
+
         this.url = url;
     }
 
@@ -41,6 +44,7 @@ public class Permission implements Serializable {
     }
 
     public void setMethod(String method) {
+
         this.method = method;
     }
 }
