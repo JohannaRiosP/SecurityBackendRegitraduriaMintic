@@ -26,13 +26,25 @@ public class RolServices {
 
     }
 
-    public Optional<Rol> show(Integer idRol){
+    /**
+     *
+     * @param idRol
+     * @return
+     */
+
+    public Optional<Rol> show(int idRol){
 
         return this.rolRepository.findById(idRol);
     }
+
+    /**
+     *
+     * @param newRol
+     * @return
+     */
     public Rol create(Rol newRol){
         if(newRol.getIdRol() == null){
-            if(newRol.getRolName() != null){
+            if(newRol.getName() != null){
                 return this.rolRepository.save(newRol);
             }
             else {
@@ -43,12 +55,12 @@ public class RolServices {
             return newRol;
         }
     }
-    public Rol update(Integer idRol, Rol updatedRol){
+    public Rol update(int idRol, Rol updatedRol){
         if(idRol > 0){
             Optional<Rol> tempRol = this.show(idRol);
             if(tempRol.isPresent()){
-                if(updatedRol.getRolName() != null)
-                    tempRol.get().setRolName(updatedRol.getRolName());
+                if(updatedRol.getName() != null)
+                    tempRol.get().setName(updatedRol.getName());
                 return this.rolRepository.save(tempRol.get());
             }
             else{
@@ -60,16 +72,16 @@ public class RolServices {
         }
     }
 
-    public boolean delete(Integer idRol){
+    public boolean delete(int idRol){
         Boolean success = this.show(idRol).map(rol -> {
-            this.rolRepository.delete(rol);
-            return true;
-        }
+                    this.rolRepository.delete(rol);
+                    return true;
+                }
         ).orElse(false);
         return success;
     }
 
-    public ResponseEntity<Rol> updatedAddPermission(int idRol, int idPermission){
+    public ResponseEntity<Rol> updateAddPermission(int idRol, int idPermission){
         Optional<Rol> rol = this.rolRepository.findById(idRol);
         if(rol.isPresent()){
             Optional<Permission> permission = this.permissionRepository.findById(idPermission);
@@ -77,12 +89,12 @@ public class RolServices {
                 Set<Permission> tempPermissions = rol.get().getPermissions();
                 if(tempPermissions.contains(permission))
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                        "Rol has the permission");
+                            "Rol has the permission");
                 else{
                     tempPermissions.add(permission.get());
                     rol.get().setPermissions(tempPermissions);
                     return new ResponseEntity<>(this.rolRepository.save(rol.get()), HttpStatus.CREATED);
-                    }
+                }
             }
             else
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -91,18 +103,40 @@ public class RolServices {
         else
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "The provided rol.id does not exist in Database");
+    }
+
+    public ResponseEntity<Rol> removePermission(int idRol, int idPermission) {
+        Optional<Rol> rol = this.rolRepository.findById(idRol);
+        if(rol.isPresent()) {
+            Optional<Permission> permission = this.permissionRepository.findById(idPermission);
+            if (permission.isPresent()) {
+                Set<Permission> tempPermissions = rol.get().getPermissions();
+                if(!tempPermissions.contains(permission))
+                    throw new ResponseStatusException(HttpStatus.CONFLICT,
+                            "Rol does not have the permission.");
+                tempPermissions.remove(permission.get());
+                rol.get().setPermissions(tempPermissions);
+                return new ResponseEntity<>(this.rolRepository.save(rol.get()), HttpStatus.CREATED);
+            }
+            else
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Provided permission does not exist in the database.");
         }
+        else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Provided rol does not exist in the database.");
+    }
+
     public ResponseEntity<Boolean> validateGrant(int idRol, Permission permission){
         boolean isGrant = false;
         Optional<Rol> rol = this.rolRepository.findById(idRol);
         if(rol.isPresent()){
-            for (Permission rolPermission: rol.get().getPermissions()){
+            for (Permission rolPermission: rol.get().getPermissions())
                 if(rolPermission.getUrl().equals(permission.getUrl()) &&
                         rolPermission.getMethod().equals(permission.getMethod())){
                     isGrant = true;
                     break;
                 }
-            }
             if (isGrant)
                 return  new ResponseEntity<>(true, HttpStatus.OK);
             else
@@ -110,7 +144,7 @@ public class RolServices {
         }
         else
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-            "The provided rol.id does not exist id database");
+                    "The provided rol.id does not exist id database");
     }
 
 }

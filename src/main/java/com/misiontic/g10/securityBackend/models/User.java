@@ -22,36 +22,77 @@ public class User implements Serializable {
     @JsonIgnoreProperties ("users")
     private Rol rol;
 
+    /**
+     *
+     * @return
+     */
     public Integer getIdUser() {
         return idUser;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNickname() {
         return nickname;
     }
 
+    /**
+     *
+     * @param nickname
+     */
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
+
+    /**
+     *
+     * @param password
+     */
 
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
+
+    /**
+     *
+     * @param email
+     */
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
+
     public Rol getRol() {
         return rol;
     }
+
+    /**
+     *
+     * @param rol
+     */
 
     public void setRol(Rol rol) {
         this.rol = rol;

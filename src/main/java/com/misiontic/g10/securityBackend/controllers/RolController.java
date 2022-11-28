@@ -5,9 +5,10 @@ import com.misiontic.g10.securityBackend.services.RolServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.HashMap;
 @CrossOrigin
 @RestController
 @RequestMapping("/rol")
@@ -43,11 +44,15 @@ public class RolController {
         return this.rolServices.update(idRol, rol);
     }
 
-    @PutMapping("update/{idRol}/add_permission/{idPermission}")
+    @PutMapping("/update/{idRol}/add_permission/{idPermission}")
     public ResponseEntity<Rol> updateRolAddPermission(@PathVariable ("idRol") int idRol, @PathVariable("idPermission") int idPermission){
-        return this.rolServices.updatedAddPermission(idRol, idPermission);
+        return this.rolServices.updateAddPermission(idRol, idPermission);
     }
 
+    @PutMapping("/update/{idRol}/remove_permission/{idPermission}")
+    public ResponseEntity<Rol> updateRolRemovePermission(@PathVariable("idRol") int idRol, @PathVariable("idPermission") int idPermission){
+        return this.rolServices.removePermission(idRol, idPermission);
+    }
     @DeleteMapping("/delete/{id}")
     public boolean deleteRol(@PathVariable("id") int idRol){
 

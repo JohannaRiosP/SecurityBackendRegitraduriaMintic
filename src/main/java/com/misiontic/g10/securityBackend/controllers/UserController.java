@@ -3,13 +3,12 @@ package com.misiontic.g10.securityBackend.controllers;
 import com.misiontic.g10.securityBackend.models.User;
 import com.misiontic.g10.securityBackend.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
+import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -55,6 +54,7 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     public boolean deleteUser(@PathVariable("id") int idUser){
+
         return this.userServices.delete(idUser);
     }
 }
